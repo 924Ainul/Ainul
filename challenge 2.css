@@ -1,0 +1,24 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f4f4f4;
+}
+
+h1 {
+    color: #2c3e50;
+}
+
+.output-box {
+    background: #ecf0f1;
+    padding: 15px;
+    border: 1px dashed #7f8c8d;
+}
+
+.eligible {
+    color: green;
+    font-weight: bold;
+}
+
+.not-eligible {
+    color: red;
+}
