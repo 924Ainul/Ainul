@@ -1,4 +1,8 @@
-// 1. Define Multi-Dimensional Array studentData
+// 1. Define Multi-Dimensional Array studentData)
+// Format: [Name (String), Credit Hour (Number), Current GPA (Number)]
+
+// -- AI ASSISTED CODE START --
+// Array initialization and logic for eligibility checking
 let studentData = [
     ["Ali Bin Ahmad", 15, 3.75],
     ["Bala A/L Muthu", 12, 3.40],
@@ -6,90 +10,49 @@ let studentData = [
     ["Wong Mei Ling", 10, 3.50],
     ["David Lee", 15, 2.95]
 ];
+// -- AI ASSISTED CODE END --
 
-// 2. Create function to measure dean list eligibility
-function checkDeanList(gpa) {
-    if (gpa >= 3.50) {
-        return "Dean's List Eligible";
-    } else {
-        return "Not Dean's List Eligible";
-    }
-}
 
-function formatGPA(gpa) {
-    return parseFloat(gpa).toFixed(2);
-}
-
-// ===================================================================
 // -- AI ASSISTED CODE START --
-// Assistance with function logic
-// ===================================================================
-
-
-function checkEligibility() {
-    const name = document.getElementById('studentName').value.trim();
-    const creditHours = document.getElementById('creditHours').value;
-    const gpa = document.getElementById('currentGPA').value;
-    
-
-    if (name && creditHours && gpa) {
-        // Validate inputs
-        if (gpa < 0 || gpa > 4.00) {
-            alert("GPA must be between 0.00 and 4.00!");
-            return;
-        }
-
-    // ===================================================================
-    // -- AI ASSISTED CODE END --
-    // ====================================================================
-        const tempStudentData = [...studentData];
-        tempStudentData.push([name, parseInt(creditHours), parseFloat(gpa)]);
-        
-        displayResults(tempStudentData);
-        
-        document.getElementById('studentName').value = '';
-        document.getElementById('creditHours').value = '';
-        document.getElementById('currentGPA').value = '';
+// Logic for the checkDeanList function
+// 2. Create function to measure dean list eligibility using conditional statement
+function checkDeanList(credit, gpa) {
+    if (credit >= 12 && gpa >= 3.50) {
+        return "Eligible for Dean's List";
     } else {
-        
-        displayResults(studentData);
+        return "Not Eligible for Dean's List";
     }
 }
+// -- AI ASSISTED CODE END --
 
-function displayResults(dataArray) {
-    const container = document.getElementById('results-container');
-    
-    // Create the output box
-    let outputHTML = "<div class='output-box'>";
-    outputHTML += "<h2>Section 03 Result</h2>";
-    
-    // Check if there are students
-    if (dataArray.length === 0) {
-        outputHTML += "<p>No students to check. Add student information first.</p>";
-    } else {
-        // Create Looping (for loop) to print student data
-        for (let i = 0; i < dataArray.length; i++) {
-            const studentName = dataArray[i][0];
-            const currentGPA = dataArray[i][2];
-            
-            const formattedGPA = formatGPA(currentGPA);
-            
-            const status = checkDeanList(currentGPA);
-            const statusClass = (status === "Dean's List Eligible") ? "eligible" : "not-eligible";
-        
-            outputHTML += "<div class='student-result'>";
-            outputHTML += "<div class='student-info'><strong>Name</strong>: " + studentName + "</div>";
-            outputHTML += "<div class='student-info'><strong>Current GPA</strong>: " + formattedGPA + "</div>";
-            outputHTML += "<div class='student-info'><strong>Status</strong>: <span class='" + statusClass + "'>" + status + "</span></div>";
-            outputHTML += "</div>";
+
+// Auto display result when page loads
+window.onload = function () {
+
+    let output = "<h2>Section 03 Result</h2>";
+
+    // 3.Create Looping (for loop) to print student data such name,
+    // credithours and current gpa and their eligibility (status)
+    for (let i = 0; i < studentData.length; i++) {
+
+        let status = checkDeanList(studentData[i][1], studentData[i][2]);
+
+        // 4. print all the output, this one need to be in the loop
+        output += "<div>";
+        output += "<b>Name:</b> " + studentData[i][0] + "<br>";
+        output += "<b>Credit Hours:</b> " + studentData[i][1] + "<br>";
+        output += "<b>Current GPA:</b> " + studentData[i][2] + "<br>";
+
+        if (status.includes("Eligible")) {
+            output += "<b>Status:</b> <span class='eligible'>" + status + "</span><br>";
+        } else {
+            output += "<b>Status:</b> <span class='not-eligible'>" + status + "</span><br>";
         }
-    }
-    
-    outputHTML += "</div>";
-    
-    container.innerHTML = outputHTML;
-}
 
-window.onload = function() {
-    displayResults(studentData);
+        output += "<hr style='border-top: 1px dotted #ccc;'>";
+        output += "</div>";
+    }
+
+    document.getElementById("result").innerHTML = output;
 };
+;
